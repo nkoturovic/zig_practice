@@ -40,16 +40,14 @@ fn Model(comptime T: type) type {
 }
 
 const User = Model(struct {
-    const firstname_type = Field([]const u8, .{Length{ .from = 1, .to = 5 }}); // should be different
-    const lastname_type = Field([]const u8, .{Length{ .from = 1, .to = 8 }}); // should be different
-    firstname: firstname_type,
-    lastname: lastname_type,
+    firstname: Field([]const u8, .{Length{ .from = 1, .to = 5 }}), // should be different
+    lastname: Field([]const u8, .{Length{ .from = 1, .to = 8 }}), // should be different
 });
 
 pub fn main() anyerror!void {
     const len_check = Length{ .from = 1, .to = 2 };
     std.debug.print("{}\n", .{len_check.is_satisfied("Hello world")});
 
-    var u = User{ .firstname = User.firstname_type{ .value = "Nebojsa" }, .lastname = User.lastname_type{ .value = "Koturovic" } };
+    var u = User{ .firstname = .{ .value = "Nebojsa" }, .lastname = .{ .value = "Koturovic" } };
     std.debug.print("{}\n", .{u});
 }
