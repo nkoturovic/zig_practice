@@ -7,9 +7,9 @@ fn factorial(n: u64) u64 {
     };
 }
 
-pub fn main() u8 {
-    // const nargs = @truncate(u8, std.os.argv.len);
-    // const f = factorial(nargs);
-    const f = factorial(5);
-    return @truncate(u8, f);
+pub fn main() !void {
+    const x = comptime factorial(5);
+    var xs : [x]i32 = [_]i32 { 0 } ** x;
+
+    std.debug.print("{any}\n", .{xs});
 }
