@@ -2,7 +2,7 @@ const std = @import("std");
 
 const Hero = struct { attack: u32, armor: u32 };
 
-pub fn main() !u8 {
+pub fn main() !void {
     const hero: Hero = comptime blk: {
         @setEvalBranchQuota(10000);
         const fc = @embedFile("../file.json");
@@ -10,5 +10,6 @@ pub fn main() !u8 {
         var res = std.json.parse(Hero, &stream, .{});
         break :blk res catch unreachable;
     };
-    return hero.armor;
+
+    @compileLog("Armor from file.json: ", hero.armor);
 }
